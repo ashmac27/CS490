@@ -1,5 +1,5 @@
 <?php
-//Ashley Macote, CS490, Backend
+//CS490, Backend
 $host = "";
 $user = "";
 $dbpassword = "";
