@@ -1,10 +1,10 @@
 <?php
 
-//Ashley Macote, CS490, Backend
-$host = "sql1.njit.edu";
-$user = "am2829";
-$dbpassword = "urLNjFMv";
-$db  = "am2829";
+
+$host = "";
+$user = "";
+$dbpassword = "";
+$db  = "";
 
 //Connecting to mysql
 $db_conn = mysqli_connect ($host, $user, $dbpassword, $db);
