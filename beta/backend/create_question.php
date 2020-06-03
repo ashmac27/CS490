@@ -10,24 +10,27 @@ $db_conn = mysqli_connect ($host, $user, $dbpassword, $db);
 if($db_conn-> connect_error)
     die("Connection failure: ". $db_conn -> connect_error);
 
-$response = "fail";
+//$response = "fail";
 
-$topic = mysqli_real_escape_string($_POST['topic']);
-$difficulty = mysqli_real_escape_string($_POST['difficulty']);
-$question = mysqli_real_escape_string($_POST['question']);
-$tc1 = mysqli_real_escape_string($_POST['testcase1']);
-$tc2 = mysqli_real_escape_string($_POST['testcase2']);
-$answer1 = mysqli_real_escape_string($_POST['answer1']);
-$answer2 = mysqli_real_escape_string($_POST['answer2']);
+$topic = $_POST['topic'];
+$difficulty = $_POST['difficulty'];
+$question = $_POST['question'];
+$tc1 = $_POST['testcase1'];
+$tc2 = $_POST['testcase2'];
+$answer1 = $_POST['answer1']);
+$answer2 = $_POST['answer2'];
 
-$question_query = "INSERT INTO Questions (topic, difficulty, question, tc1, tc2, answer1, answer2)
-                    VALUES ('$topic','$difficulty','$question', '$tc1', '$tc2', '$answer1','$answer2')";
+$question_query = "INSERT INTO Questions (topic, difficulty, question, tc1, tc2, answer1, answer2) VALUES ('$topic','$difficulty','$question', '$tc1', '$tc2', '$answer1','$answer2');";
+echo $question_query;
+$question_ex = $db_conn->query($question_query);
+//echo $question_ex;
 
-if($db_conn->query($question_query))
-    $response = "Success! You created a question";
-
-$json_response = json_encode($response);
-echo $json_response;
+//if($db_conn->query($question_query))
+  //  $response = "Success! You created a question";
+if($question_ex == TRUE){
+    $json_response = "Question Created!";
+    echo $json_response;
+}
 
 $db_conn->close();
 ?>
