@@ -1,9 +1,9 @@
 <?php
-//Ashley Macote, CS490, Backend
-$host = "sql1.njit.edu";
-$user = "am2829";
-$dbpassword = "urLNjFMv";
-$db  = "am2829";
+
+$host = "";
+$user = "";
+$dbpassword = ;
+$db  = ;
 
 //Defining the variables and hashing the password using md5
 $username = $_POST['username'];
