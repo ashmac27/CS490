@@ -12,15 +12,15 @@ if($db_conn-> connect_error)
     die("Connection failure: ". $db_conn -> connect_error);
 
 $response = "fail";
-$exam =  mysqli_real_escape_string($_POST['exam_title']);
+$exam = $_POST['exam_title'];
 //question bank should be an unordered list with the id question_bank
-$questions_array =  mysqli_real_escape_string($_POST['questions']);
-$points = mysqli_real_escape_string($_POST['points']);
+$questions_array = $_POST['questions'];
+$points = $_POST['points'];
 
 //foreach($i in $question_array_str)
 
 
-$query = "SELECT username FROM login WHERE role='student';";
+$query = "SELECT username FROM login WHERE role ='student';";
 $result = $db_conn->query($query);
 
 $students_selected = [];
@@ -30,7 +30,7 @@ while($row = $result->fetch_assoc()){
 }
 
 $student_status = "ungraded";
-$exam_status = "undelivered";
+//$exam_status = "undelivered";
 foreach ($students_assigned as $username) {
     $exam_roster_insert = "INSERT INTO ExamRoster(username, exam, status)
                             VALUES('$username','$exam','$student_status');";
@@ -39,20 +39,24 @@ foreach ($students_assigned as $username) {
 
 //insert exam title, array of all the questions, array of all the points related 
 //to questions, insert exam status (not yet delivered)
-$add_exam_q = "INSERT INTO Exams (exam, questions, points, status)
-                VALUES ('$exam','$questions_array','$points','$exam_status')";
-
+$add_exam = "INSERT INTO Exams (exam, questions, points)
+             VALUES ('$exam','$questions_array','$points')";
+$aeq = $db_conn->query($add_exam);
+if($aeq ==TRUE){
+    echo json_encode("You created an exam");
+}
 
 //if teacher decides to click to send the exam to students
-if($_POST(['deliver_exam'])){
-    $deliver_exam_q = "UPDATE ExamRoster SET status = 'delivered' WHERE exam = '$exam'";
-    $deq = $db_conn->query($deliver_exam_q);
-}
+//if($_POST['deliver_exam']){
+  //  $deliver_exam_q = "UPDATE ExamRoster SET status = 'delivered' WHERE exam = '$exam'";
+    //$deq = $db_conn->query($deliver_exam_q);
+//}
 
-if($deq == TRUE){
-    $response = "You sent the exam!";
-    echo json_encode($response);
-}
+//if($deq == TRUE){
+  //  $response = "You sent the exam!";
+   // echo json_encode($response);
+//}
 
 $db_conn->close();
 ?>
+
