@@ -18,7 +18,7 @@ if($db_conn-> connect_error)
 $selecting_q = "SELECT * FROM Questions";    
 $sqq = $db_conn->query($selecting_q);
 $rows = array();
-while($r = mysqli_fetch_assoc($selecting_q)){
+while($r = mysqli_fetch_assoc($sqq)){
     $rows[] = $r;
 }
 echo json_encode($rows);
