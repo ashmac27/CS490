@@ -12,13 +12,18 @@ if($db_conn-> connect_error)
 
 
 
-
 $exam = $_POST['exam'];
 $stu_username = $_POST['student'];
 $comments = unserialize($_POST['comments']);
 $student_answers = unserialize($_POST['studentanswers']);
+
+$update_grade = "UPDATE Grades
+                SET grade = '$grade'
+                WHERE username = '$stu_username'";
+$ugq = $db_conn->query($update_grade);
+
 foreach($comments as $value){
-    $update_grades = "UPDATE Grades
+    $comments_answers = "UPDATE Grades
                          SET grade = '$grade', comments = '$value', student_answers = '$student_answers[$i]'
                         WHERE username = '$stu_username'";
     $i = $i+1;
@@ -28,3 +33,4 @@ $db_conn->close();
 
 
 ?>
+
