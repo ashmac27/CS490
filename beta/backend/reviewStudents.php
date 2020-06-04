@@ -1,5 +1,5 @@
 <?php
-//For teacher only
+//For teacher to review and updates students grades and comments
 
 //Ashley Macote, CS490, Backend
 $host = "sql1.njit.edu";
@@ -26,13 +26,20 @@ $ugq = $db_conn->query($update_grade);
 $i = 0;
 foreach($comments as $value){
     $comments_answers = "UPDATE Grades
-                         SET comments = '$value', student_answers = '$student_answers[$i]'
-                         WHERE username = '$stu_username'";
+                         SET comments = '$value', student_answers = student_anserts+'$student_answers[$i]'
+                         WHERE username = '$stu_username' and exam = '$exam'";
     $i++;
+    $caq = $db_conn->query($comments_answers);
 }
+
+$set_to_graded = "UPDATE ExamRoster
+                    SET status = 'graded'
+                    WHERE username = '$stu_username'";
+$stg = $db_conn->query($set_to_graded);
+
+
 
 $db_conn->close();
 
 
 ?>
-
