@@ -14,14 +14,7 @@ if($db_conn-> connect_error)
     die("Connection failure: ". $db_conn -> connect_error);
 
 
-//Students clicks button with id exam to take it
-//$exam = $_POST['exam'];
-
 $username = $_POST['username'];
-
-//$answer = $_POST['answer'];
-//$grade = $_POST['grade'];
-//$comments = $_POST['comments'];
 
 $see_grades = "SELECT username, exam, grade, comments FROM StudentAnswers WHERE username = '$username'";
 $sg_query = $db_conn->query($see_grades);
