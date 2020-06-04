@@ -27,19 +27,32 @@ while($row = $result->fetch_assoc()){
 }
 
 $student_status = "ungraded";
+
+
 foreach ($students_selected as $username) {
     $exam_roster_insert = "INSERT INTO ExamRoster(username, exam, status)
                             VALUES('$username','$exam','$student_status');";
     $erq = $db_conn->query($exam_roster_insert);
 }
 
+//abhinav's
+$i = 0;
+foreach($questions_array as $value){
+    $add_exam = "INSERT INTO Exams(exam, questions, points)
+                  VALUES ('$exam','$value','$points[$i]')";
+    echo $add_exam;
+    echo '<br>';
+    $i = $i+1;
+}
+
+/*
 $add_exam = "INSERT INTO Exams (exam, questions, points)
              VALUES ('$exam','$questions_array','$points')";
 $aeq = $db_conn->query($add_exam);
 if($aeq ==TRUE){
     echo json_encode("You created an exam");
 }
+*/
 
 $db_conn->close();
 ?>
-
