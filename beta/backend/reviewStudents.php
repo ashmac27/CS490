@@ -22,11 +22,13 @@ $update_grade = "UPDATE Grades
                 WHERE username = '$stu_username'";
 $ugq = $db_conn->query($update_grade);
 
+
+$i = 0;
 foreach($comments as $value){
     $comments_answers = "UPDATE Grades
-                         SET grade = '$grade', comments = '$value', student_answers = '$student_answers[$i]'
-                        WHERE username = '$stu_username'";
-    $i = $i+1;
+                         SET comments = '$value', student_answers = '$student_answers[$i]'
+                         WHERE username = '$stu_username'";
+    $i++;
 }
 
 $db_conn->close();
