@@ -1,19 +1,20 @@
 <?php
 
-//for student only
+//for student only and teacher
 
 //Ashley Macote, CS490, Backend
 $host = "sql1.njit.edu";
 $user = "am2829";
 $dbpassword = "urLNjFMv";
 $db  = "am2829";
-
 //Connecting to mysql
 $db_conn = mysqli_connect ($host, $user, $dbpassword, $db);
 if($db_conn-> connect_error)
     die("Connection failure: ". $db_conn -> connect_error);
 
 
+
+//the student's username 
 $username = $_POST['username'];
 
 $see_grades = "SELECT username, exam, grade, comments FROM StudentAnswers WHERE username = '$username'";
