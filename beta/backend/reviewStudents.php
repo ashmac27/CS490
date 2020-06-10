@@ -1,7 +1,6 @@
 <?php
 //For teacher to review and updates students grades and comments
 
-//Ashley Macote, CS490, Backend
 $host = 
 $user = 
 $dbpassword = 
