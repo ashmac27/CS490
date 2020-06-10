@@ -21,7 +21,7 @@ $printc = $_POST['print'];
 
 
 $question_query = "INSERT INTO Questions (topic, difficulty, question, tc1, tc2, tc3, tc4, answer1, answer2, answer3, answer4, fconstraint, pconstraint) 
-            VALUES ('$topic','$difficulty','$question', '$tc1', '$tc2', '$tc3', '$tc4', '$answer1','$answer2', '$answer3', '$answer4')";
+            VALUES ('$topic','$difficulty','$question', '$tc1', '$tc2', '$tc3', '$tc4', '$answer1','$answer2', '$answer3', '$answer4', '$forloop', '$printc')";
 $question_ex = $db_conn->query($question_query);
 
 
