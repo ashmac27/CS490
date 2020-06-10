@@ -29,7 +29,7 @@ if($question_ex == TRUE){
     echo json_encode("Question Created!");
 }
 else{
-    echo json_encode("Question not created")
+    echo json_encode("Question not created");
 }
 
 $db_conn->close();
