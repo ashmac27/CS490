@@ -6,7 +6,6 @@ include("db.php");
 $exam = $_POST['exam_title'];
 $questions_array = unserialize($_POST['questions']);
 $points = unserialize($_POST['points']);
-//new
 $qid = unserialize($_POST['qid']);
 
 
