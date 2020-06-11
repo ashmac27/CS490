@@ -52,15 +52,33 @@ if (isset($_POST['exam'])){
 
             //call autograder
             $postRequest = array(
-                'tc4' => $row["tc4"],
-                'tc3' => $row["tc3"],
-                'tc2' => $row["tc2"],
+                /*
                 'tc1' => $row["tc1"],
-                'ans4'=> $row["answer4"],
-                'ans3'=> $row["answer3"],          
-                'ans2'=> $row["answer2"],
+                'tc2' => $row["tc2"],
+                'tc3' => $row["tc3"],
+                'tc4' => $row["tc4"],
                 'ans1'=> $row["answer1"],
+                'ans2'=> $row["answer2"],
+                'ans3'=> $row["answer3"],
+                'ans4'=> $row["answer4"],  
+                'fconstraint'=> $row["fconstraint"],
+                'pconstraint'=> $row["pconstraint"],
                 'question'=> $row["question"],
+                'qid'=> $row["qid"],
+                'ans' => $answer);
+                */
+                'tc1' => $row["tc1"],
+                'tc2' => $row["tc2"],
+                'tc3' => $row["tc3"],
+                'tc4' => $row["tc4"],
+                'ans1'=> $row["answer1"],
+                'ans2'=> $row["answer2"],
+                'ans3'=> $row["answer3"],
+                'ans4'=> $row["answer4"],  
+                'fconstraint'=> $row["fconstraint"],
+                'pconstraint'=> $row["pconstraint"],
+                'question'=> $row["question"],
+                'qid'=> $row["qid"],
                 'ans' => $answer);
 
             $cURLConnection = curl_init('https://web.njit.edu/~as2745/CS490Project/autograder.php');
@@ -73,23 +91,40 @@ if (isset($_POST['exam'])){
             $graderres = curl_exec($cURLConnection);
             curl_close($cURLConnection);
             $json = json_decode($graderres);
+    
      
             //echo 'AAAAA<br>';
             //var_dump($graderres);
             //echo 'BBBBB<br>';//$graderres[0].'BBBBBBBBB<br>';
             // var_dump($json);
-            $comments=$graderres['comment1'];
-            $score=-2;
-            $comments=$json->comment1.';'.$json->comment2;
-            //echo  $comments.'aaaa comm<br>';
-            //echo  $json["score"].'bbbb score<br>';
-            $score=$json->score;
+            // Commenting  out VVV
+            //comments=$graderres['comment1'];
+            $commentMethodName = $graderres['commentMethodName'];
+            $scoreMethodName = $graderres['scoreMethodName'];
+            $printComment = $graderres['printComment'];
+            $printScore = $graderres['printscore'];
+            $forComment = $graderres['forComment'];
+            $forScore = $graderres['forScore'];
+            $colonComment = $graderres['commentColon'];
+            $colonScore = $graderres['scoreColon'];
+            $commenttc1 = $graderres['commenttc1'];
+            $scoretc1 = $graderres['scoretc1'];
+            $commenttc2 = $graderres['commenttc2'];
+            $scoretc2 = $graderres['scoretc2'];
+            $commenttc3 = $graderres['commenttc3'];
+            $scoretc3 = $graderres['scoretc3'];
+            $commenttc4 = $graderres['commenttc4'];
+            $scoretc4 = $graderres['scoretc4'];
+            
+           // $score=-2;
+            $comments=$json->$commentMethodName.';'.$json->$printComment.';'.$json->$forComment.';'.$json->$colonComment.';'.$json->$commenttc1.';'.$json->$commenttc2.';'.$json->$commenttc3.';'.$json->$commenttc4;
+            $scores= $json->$scoreMethodName.';'.$json->$printScore.';'.$json->$forScore.';'.$json->$colonScore.';'.$json->$scoretc1.';'.$json->$scoretc2.';'.$json->$scoretc3.';'.$json->$scoretc4;
             //echo  $score.'bbbb<br>';
             
             $k = 0;
             foreach($qid as $k){
                 $student_answers = "INSERT INTO Grades (exam, qid, username, deduction, points_worth, comments,student_answers) 
-                VALUES ('$exam','$k', $username','$score','$comments', '$answer')";
+                VALUES ('$exam','$k', $username','$scores','$comments', '$answer')";
                 $saq = $db_conn->query($student_answers);
                 $k++;
             }
