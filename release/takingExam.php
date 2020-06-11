@@ -6,13 +6,14 @@ include("db.php");
 //Students clicks button with id exam to take it
 $exam = $_POST['exam'];
 $username = $_POST['username'];
+$qid = unserialize($_POST['qid']);
 $ans = unserialize($_POST['ans']);
 
-if (isset($_POST['exam'])){
-    $empty_grade= "INSERT INTO Grades(exam, qid, username, deduction, points_worth, comments, student_answers)
-                   VALUES ('$exam','null','null', 'null', 'null', 'null', 'null')";
-    $egx = $db_conn->query($empty_grade);
 
+if (isset($_POST['exam'])){
+    //$empty_grade= "INSERT INTO Grades(exam, qid, username, deduction, points_worth, comments, student_answers)
+      //             VALUES ('$exam','null','null', 'null', 'null', 'null', 'null')";
+    //$egx = $db_conn->query($empty_grade);
 
     $selecting_q = "SELECT question FROM Exams WHERE exam = '$exam'";
     $result = $db_conn->query($selecting_q);
@@ -73,6 +74,9 @@ if (isset($_POST['exam'])){
     curl_close($cURLConnection);
     $json = json_decode($graderres);
      
+     //echo 'AAAAA<br>';
+     //var_dump($graderres);
+      //echo 'BBBBB<br>';//$graderres[0].'BBBBBBBBB<br>';
      // var_dump($json);
     $comments=$graderres['comment1'];
     $score=-2;
@@ -81,27 +85,51 @@ if (isset($_POST['exam'])){
      //echo  $json["score"].'bbbb score<br>';
     $score=$json->score;
      //echo  $score.'bbbb<br>';
-    $student_answers = "INSERT INTO Grades (exam, username, deduction, points_worth, comments,student_answers) 
-                         VALUES ('$exam','$ucid','$score','$comments', '$answer')";
-    $saq = $db_conn->query($student_answers);
+    
+    $k = 0;
+    foreach($qid as $k){
+        $student_answers = "INSERT INTO Grades (exam, qid, username, deduction, points_worth, comments,student_answers) 
+        VALUES ('$exam','$k', $username','$score','$comments', '$answer')";
+        $saq = $db_conn->query($student_answers);
+        $k++;
+    }
+    //$student_answers = "INSERT INTO Grades (exam, username, deduction, points_worth, comments,student_answers) 
+      //                   VALUES ('$exam','$username','$score','$comments', '$answer')";
+    //$saq = $db_conn->query($student_answers);
     
     //$update_grades_qid = "UPDATE Grades SET qid = '' WHERE username = $ucid";
     // Testing starts here
-    $qid_arr = [];
-    $getting_qid = "SELECT qid FROM Exams WHERE exam = '$exam'";
-    $gqq = $db_conn->query($getting_qid);
-    while($r = mysqli_fetch_assoc($result)){
-        array_push($qid_arr, $r['qid']);
-    }
+   //$qid_arr = [];
+    //$getting_qid = "SELECT qid FROM Exams WHERE exam = '$exam'";
+    //$gqq = $db_conn->query($getting_qid);
+    //while($r = mysqli_fetch_assoc($result)){
+      //  array_push($qid_arr, $r['qid']);
+   // }
 
     // Pull from questions array at line 22
 
-    $j = 0;
-    foreach($qid_arr as $i){
-        $update_grades_qid = "UPDATE Grades SET qid = '$i' WHERE username = $ucid and question = '$questions[$j]'";
-        $j++;
-    }
+/*
+Last one commented out...
 
+    foreach($qid as $i){
+        // I don't have the question association in the grades table
+        //Old one 
+        //$update_grades_qid = "UPDATE Grades SET qid = '$i' WHERE username = $username and question = '$questions[$j]'";
+        $update_grades_qid = "UPDATE Grades SET qid = '$i' WHERE username = $username";
+        $ugq = $db_conn->query($update_grades_qid);
+        //$j++;
+    }
+    */
+/*
+    $update_grades_qid = "UPDATE Grades
+                        SET g.qid = q.qid , 
+                        FROM Grades AS g
+                        INNER JOIN Questions AS q ON g.qid = q.qid;
+                        WHERE q.question IN
+                             (SELECT E.question
+                              FROM Exams as E, Questions as Q
+                              WHERE E.qid = E.qid)";
+*/
     // Testing ends here
 
 
