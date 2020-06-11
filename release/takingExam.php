@@ -86,28 +86,37 @@ if (isset($_POST['exam'])){
             // Commenting  out VVV
             //comments=$graderres['comment1'];
             //$commentMethodName = $graderres['commentMethodName'];
-            $scoreMethodName = $graderres['scoreMethodName'];
+           // $scoreMethodName = $graderres['scoreMethodName'];
             //$printComment = $graderres['printComment'];
-            $printScore = $graderres['printscore'];
+            //$printScore = $graderres['printscore'];
             //$forComment = $graderres['forComment'];
-            $forScore = $graderres['forScore'];
+           // $forScore = $graderres['forScore'];
             //$colonComment = $graderres['commentColon'];
-            $colonScore = $graderres['scoreColon'];
+            //$colonScore = $graderres['scoreColon'];
             //$commenttc1 = $graderres['commenttc1'];
-            $scoretc1 = $graderres['scoretc1'];
+           // $scoretc1 = $graderres['scoretc1'];
             //$commenttc2 = $graderres['commenttc2'];
-            $scoretc2 = $graderres['scoretc2'];
+            //$scoretc2 = $graderres['scoretc2'];
             //$commenttc3 = $graderres['commenttc3'];
-            $scoretc3 = $graderres['scoretc3'];
+            //$scoretc3 = $graderres['scoretc3'];
             //$commenttc4 = $graderres['commenttc4'];
-            $scoretc4 = $graderres['scoretc4'];   
+           // $scoretc4 = $graderres['scoretc4'];   
+
+            $scoreMethodName = $json->$scoreMethodName;
+            $printScore = $json->$printScore;
+            $forScore = $json->$forScore;
+            $colonScore = $json->$colonScore;
+            $scoretc1 = $json->$scoretc1;
+            $scoretc2 = $json->$scoretc2;
+            $scoretc3 = $json->$scoretc3;
+            $scoretc4 = $json->$scoretc4;
            // $score=-2;
             //$comments=$json->$commentMethodName.';'.$json->$printComment.';'.$json->$forComment.';'.$json->$colonComment.';'.$json->$commenttc1.';'.$json->$commenttc2.';'.$json->$commenttc3.';'.$json->$commenttc4;
             $scores= $json->$scoreMethodName.';'.$json->$printScore.';'.$json->$forScore.';'.$json->$colonScore.';'.$json->$scoretc1.';'.$json->$scoretc2.';'.$json->$scoretc3.';'.$json->$scoretc4;
             //echo  $score.'bbbb<br>';
             
 
-            $item_arr = array("scoreMethodName","printScore", "forScore", "colonScore", "scoretc1", "scoretc2", "scoretc3", "scoretc4");
+            $item_arr = array("MethodName","print", "for", "colon", "tc1", "tc2", "scoretc3", "scoretc4");
             $scores_arr = array("$scoreMethodName","$printScore", "$forScore", "$colonScore", "$scoretc1", "$scoretc2", "$scoretc3", "$scoretc4");
 
             $k = 0;
@@ -118,8 +127,8 @@ if (isset($_POST['exam'])){
                 VALUES ('$exam','$value', $username','$scores', NULL, '$answer')";
                 $saq = $db_conn->query($student_answers);
 
-                $item_deductions = "INSERT INTO Item_Deductions
-                                    VALUE('$username', '$exam', '$value', '$item_arr[$k]','$scores_arr[$k]', NULL)";
+                $item_deductions = "INSERT INTO Item_Deductions(username, examname, qid, item, autograde, teachergrade)
+                                    VALUES('$username', '$exam', '$value', '$item_arr[$k]','$scores_arr[$k]', NULL)";
                 $idq = $db_conn->query($item_deductions);
 
                 $k++;
