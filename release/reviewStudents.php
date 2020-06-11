@@ -15,7 +15,7 @@ var_dump($qids);
  
 $i = 0;
 while(i < count($qids)){
-      $a = "UPDATE Grades SET comments='$comments[$i]' where username='$user' and exam='$exam' and qid='$qids[$i]';";
+      $a = "UPDATE Grades SET comments='$comments[$i]' WHERE username='$user' AND exam='$exam' AND qid='$qids[$i]';";
       echo "heredbconn";
       echo $i." ".$a;
       echo '<br>';
@@ -31,7 +31,7 @@ $k=0;
 $item_arr = array("MethodName", "tc1", "tc2", "tc3", "tc4", "colon","print", "for");
 while($i < count($corrections)){
     echo '<br>';
-    $qry="UPDATE Item_Deductions SET teachergrade='$corrections[$i]'  where username='$user' and exam='$exam' and qid='$qids[$j]' and item='$item_arr[$k]'";
+    $qry="UPDATE Item_Deductions SET teachergrade='$corrections[$i]' WHERE username='$user' AND exam='$exam' AND qid='$qids[$j]' AND item='$item_arr[$k]'";
     echo $qry;
     echo '<br>';
     $result = $conn->query($qry); 
