@@ -29,7 +29,7 @@ foreach ($students_selected as $i) {
 $j = 0;
 foreach($questions_array as $value){
     $add_exam = "INSERT INTO Exams(exam, qid, question, points)
-                  VALUES ('$exam',$qids[$j]','$value','$points[$j]')";
+                  VALUES ('$exam','$qids[$j]','$value','$points[$j]')";
     //var_dump($add_exam);
     $aeq = $db_conn->query($add_exam);
     $j++;
