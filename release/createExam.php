@@ -6,7 +6,7 @@ include("db.php");
 $exam = $_POST['exam_title'];
 $questions_array = unserialize($_POST['questions']);
 $points = unserialize($_POST['points']);
-//new: array of qids **************************************
+//new
 $qids = unserialize($_POST['qid']);
 
 //Query to select students to take the exam
@@ -30,9 +30,11 @@ $j = 0;
 foreach($questions_array as $value){
     $add_exam = "INSERT INTO Exams(exam, qid, question, points)
                   VALUES ('$exam',$qids[$j]','$value','$points[$j]')";
+    //var_dump($add_exam);
     $aeq = $db_conn->query($add_exam);
     $j++;
 }
 
 $db_conn->close();
 ?>
+
