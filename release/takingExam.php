@@ -8,6 +8,7 @@ $exam = $_POST['exam'];
 $username = $_POST['username'];
 $qid = unserialize($_POST['qid']);
 $ans = unserialize($_POST['ans']);
+$qid=array("2", "5", "6");
 
 
 if (isset($_POST['exam'])){
@@ -111,6 +112,8 @@ if (isset($_POST['exam'])){
             $scoretc2 = $json->$scoretc2;
             $scoretc3 = $json->$scoretc3;
             $scoretc4 = $json->$scoretc4;
+            //adding varibales to be similar to abhinav
+
            // $score=-2;
             //$comments=$json->$commentMethodName.';'.$json->$printComment.';'.$json->$forComment.';'.$json->$colonComment.';'.$json->$commenttc1.';'.$json->$commenttc2.';'.$json->$commenttc3.';'.$json->$commenttc4;
             //$scores= $json->$scoreMethodName.';'.$json->$printScore.';'.$json->$forScore.';'.$json->$colonScore.';'.$json->$scoretc1.';'.$json->$scoretc2.';'.$json->$scoretc3.';'.$json->$scoretc4;
@@ -142,15 +145,16 @@ if (isset($_POST['exam'])){
                                 VALUES ('$exam','$qnum', '$username','$scores', NULL, '$answer')";
                                 
             $saq = $db_conn->query($student_answers);
-            $item_arr = array("MethodName","print", "for", "colon", "tc1", "tc2", "scoretc3", "scoretc4");
+            $item_arr = array("MethodName","print", "for", "colon", "tc1", "tc2", "tc3", "tc4");
             $scores_arr = array("$scoreMethodName","$printScore", "$forScore", "$colonScore", "$scoretc1", "$scoretc2", "$scoretc3", "$scoretc4");
 
             $k = 0;
             while($k < count($item_arr)){
                 $item_deductions = "INSERT INTO Item_Deductions(username, examname, qid, item, autograde, teachergrade) 
-                                    VALUES('$username', '$exam', '$qnum', '$item_arr[$k]','$scores_arr[$k]', NULL)";
+                                    VALUES('$username', '$exam', '$qnum', '$item_arr[$k]','$scores_arr[$k]', '0')";
                 $idq = $db_conn->query($item_deductions);
                 $k++;
+
             }
 
             
