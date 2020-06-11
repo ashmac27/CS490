@@ -50,6 +50,7 @@ if (isset($_POST['exam'])){
             $row_arr[$i]["pconstraint"] = $row["pconstraint"];
             $answer=$ans[$i];
 
+
             //call autograder
             $postRequest = array(
 
@@ -112,10 +113,10 @@ if (isset($_POST['exam'])){
             $scoretc4 = $json->$scoretc4;
            // $score=-2;
             //$comments=$json->$commentMethodName.';'.$json->$printComment.';'.$json->$forComment.';'.$json->$colonComment.';'.$json->$commenttc1.';'.$json->$commenttc2.';'.$json->$commenttc3.';'.$json->$commenttc4;
-            $scores= $json->$scoreMethodName.';'.$json->$printScore.';'.$json->$forScore.';'.$json->$colonScore.';'.$json->$scoretc1.';'.$json->$scoretc2.';'.$json->$scoretc3.';'.$json->$scoretc4;
+            //$scores= $json->$scoreMethodName.';'.$json->$printScore.';'.$json->$forScore.';'.$json->$colonScore.';'.$json->$scoretc1.';'.$json->$scoretc2.';'.$json->$scoretc3.';'.$json->$scoretc4;
             //echo  $score.'bbbb<br>';
             
-
+/*
             $item_arr = array("MethodName","print", "for", "colon", "tc1", "tc2", "scoretc3", "scoretc4");
             $scores_arr = array("$scoreMethodName","$printScore", "$forScore", "$colonScore", "$scoretc1", "$scoretc2", "$scoretc3", "$scoretc4");
 
@@ -133,7 +134,26 @@ if (isset($_POST['exam'])){
 
                 $k++;
             }
+*/
 
+            $scores= $scoreMethodName.';'.$printScore.';'.$forScore.';'.$colonScore.';'.$scoretc1.';'.$scoretc2.';'.$scoretc3.';'.$scoretc4;
+            $qnum=$row["qid"];
+            $student_answers  = "INSERT INTO Grades (exam, qid, username, deduction,comments, student_answers) 
+                                VALUES ('$exam','$qnum', '$username','$scores', NULL, '$answer')";
+                                
+            $saq = $db_conn->query($student_answers);
+            $item_arr = array("MethodName","print", "for", "colon", "tc1", "tc2", "scoretc3", "scoretc4");
+            $scores_arr = array("$scoreMethodName","$printScore", "$forScore", "$colonScore", "$scoretc1", "$scoretc2", "$scoretc3", "$scoretc4");
+
+            $k = 0;
+            while($k < count($item_arr)){
+                $item_deductions = "INSERT INTO Item_Deductions(username, examname, qid, item, autograde, teachergrade) 
+                                    VALUES('$username', '$exam', '$qnum', '$item_arr[$k]','$scores_arr[$k]', NULL)";
+                $idq = $db_conn->query($item_deductions);
+                $k++;
+            }
+
+            
 
 
 
