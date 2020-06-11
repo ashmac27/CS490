@@ -33,6 +33,8 @@ if (isset($_POST['exam'])){
             $row_arr[$i]['answer2'] = $row['answer2'];
             $row_arr[$i]['answer3'] = $row['answer3'];
             $row_arr[$i]['answer4'] = $row['answer4'];
+            $row_arr[$i]['fconstraint'] = $row['fconstraint'];
+            $row_arr[$i]['pconstraint'] = $row['pconstraint'];
         }
     }
     //returns a an array 
