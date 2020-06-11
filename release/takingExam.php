@@ -50,91 +50,91 @@ if (isset($_POST['exam'])){
             $row_arr[$i]["pconstraint"] = $row["pconstraint"];
             $answer=$ans[$i];
 
-        //call autograder
-        $postRequest = array(
-          'tc4' => $row["tc4"],
-          'tc3' => $row["tc3"],
-          'tc2' => $row["tc2"],
-          'tc1' => $row["tc1"],
-          'ans4'=> $row["answer4"],
-          'ans3'=> $row["answer3"],          
-          'ans2'=> $row["answer2"],
-          'ans1'=> $row["answer1"],
-          'question'=> $row["question"],
-          'ans' => $answer);
+            //call autograder
+            $postRequest = array(
+                'tc4' => $row["tc4"],
+                'tc3' => $row["tc3"],
+                'tc2' => $row["tc2"],
+                'tc1' => $row["tc1"],
+                'ans4'=> $row["answer4"],
+                'ans3'=> $row["answer3"],          
+                'ans2'=> $row["answer2"],
+                'ans1'=> $row["answer1"],
+                'question'=> $row["question"],
+                'ans' => $answer);
 
-          $cURLConnection = curl_init('https://web.njit.edu/~as2745/CS490Project/autograder.php');
-    //$cURLConnection = curl_init('https://web.njit.edu/~am2829/cs490/takingExam.php');
-    curl_setopt($cURLConnection, CURLOPT_POSTFIELDS, $postRequest);
-    curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
-    
-    //calling backend
+            $cURLConnection = curl_init('https://web.njit.edu/~as2745/CS490Project/autograder.php');
+            //$cURLConnection = curl_init('https://web.njit.edu/~am2829/cs490/takingExam.php');
+            curl_setopt($cURLConnection, CURLOPT_POSTFIELDS, $postRequest);
+            curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
+            
+            //calling backend
 
-    $graderres = curl_exec($cURLConnection);
-    curl_close($cURLConnection);
-    $json = json_decode($graderres);
+            $graderres = curl_exec($cURLConnection);
+            curl_close($cURLConnection);
+            $json = json_decode($graderres);
      
-     //echo 'AAAAA<br>';
-     //var_dump($graderres);
-      //echo 'BBBBB<br>';//$graderres[0].'BBBBBBBBB<br>';
-     // var_dump($json);
-    $comments=$graderres['comment1'];
-    $score=-2;
-    $comments=$json->comment1.';'.$json->comment2;
-     //echo  $comments.'aaaa comm<br>';
-     //echo  $json["score"].'bbbb score<br>';
-    $score=$json->score;
-     //echo  $score.'bbbb<br>';
-    
-    $k = 0;
-    foreach($qid as $k){
-        $student_answers = "INSERT INTO Grades (exam, qid, username, deduction, points_worth, comments,student_answers) 
-        VALUES ('$exam','$k', $username','$score','$comments', '$answer')";
-        $saq = $db_conn->query($student_answers);
-        $k++;
-    }
-    //$student_answers = "INSERT INTO Grades (exam, username, deduction, points_worth, comments,student_answers) 
-      //                   VALUES ('$exam','$username','$score','$comments', '$answer')";
-    //$saq = $db_conn->query($student_answers);
-    
-    //$update_grades_qid = "UPDATE Grades SET qid = '' WHERE username = $ucid";
-    // Testing starts here
-   //$qid_arr = [];
-    //$getting_qid = "SELECT qid FROM Exams WHERE exam = '$exam'";
-    //$gqq = $db_conn->query($getting_qid);
-    //while($r = mysqli_fetch_assoc($result)){
-      //  array_push($qid_arr, $r['qid']);
-   // }
+            //echo 'AAAAA<br>';
+            //var_dump($graderres);
+            //echo 'BBBBB<br>';//$graderres[0].'BBBBBBBBB<br>';
+            // var_dump($json);
+            $comments=$graderres['comment1'];
+            $score=-2;
+            $comments=$json->comment1.';'.$json->comment2;
+            //echo  $comments.'aaaa comm<br>';
+            //echo  $json["score"].'bbbb score<br>';
+            $score=$json->score;
+            //echo  $score.'bbbb<br>';
+            
+            $k = 0;
+            foreach($qid as $k){
+                $student_answers = "INSERT INTO Grades (exam, qid, username, deduction, points_worth, comments,student_answers) 
+                VALUES ('$exam','$k', $username','$score','$comments', '$answer')";
+                $saq = $db_conn->query($student_answers);
+                $k++;
+            }
+            //$student_answers = "INSERT INTO Grades (exam, username, deduction, points_worth, comments,student_answers) 
+            //                   VALUES ('$exam','$username','$score','$comments', '$answer')";
+            //$saq = $db_conn->query($student_answers);
+            
+            //$update_grades_qid = "UPDATE Grades SET qid = '' WHERE username = $ucid";
+            // Testing starts here
+        //$qid_arr = [];
+            //$getting_qid = "SELECT qid FROM Exams WHERE exam = '$exam'";
+            //$gqq = $db_conn->query($getting_qid);
+            //while($r = mysqli_fetch_assoc($result)){
+            //  array_push($qid_arr, $r['qid']);
+        // }
 
-    // Pull from questions array at line 22
+            // Pull from questions array at line 22
 
-/*
-Last one commented out...
+        /*
+        Last one commented out...
 
-    foreach($qid as $i){
-        // I don't have the question association in the grades table
-        //Old one 
-        //$update_grades_qid = "UPDATE Grades SET qid = '$i' WHERE username = $username and question = '$questions[$j]'";
-        $update_grades_qid = "UPDATE Grades SET qid = '$i' WHERE username = $username";
-        $ugq = $db_conn->query($update_grades_qid);
-        //$j++;
-    }
-    */
-/*
-    $update_grades_qid = "UPDATE Grades
-                        SET g.qid = q.qid , 
-                        FROM Grades AS g
-                        INNER JOIN Questions AS q ON g.qid = q.qid;
-                        WHERE q.question IN
-                             (SELECT E.question
-                              FROM Exams as E, Questions as Q
-                              WHERE E.qid = E.qid)";
-*/
-    // Testing ends here
+            foreach($qid as $i){
+                // I don't have the question association in the grades table
+                //Old one 
+                //$update_grades_qid = "UPDATE Grades SET qid = '$i' WHERE username = $username and question = '$questions[$j]'";
+                $update_grades_qid = "UPDATE Grades SET qid = '$i' WHERE username = $username";
+                $ugq = $db_conn->query($update_grades_qid);
+                //$j++;
+            }
+            */
+        /*
+            $update_grades_qid = "UPDATE Grades
+                                SET g.qid = q.qid , 
+                                FROM Grades AS g
+                                INNER JOIN Questions AS q ON g.qid = q.qid;
+                                WHERE q.question IN
+                                    (SELECT E.question
+                                    FROM Exams as E, Questions as Q
+                                    WHERE E.qid = E.qid)";
+        */
+            // Testing ends here
 
 
 
-        //save it into db
+                //save it into db
         }
         $i=$i+1;
     }
