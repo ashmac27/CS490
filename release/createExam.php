@@ -23,18 +23,18 @@ $student_status = "ungraded";
 foreach ($students_selected as $i) {
     $exam_roster_insert = "INSERT INTO ExamRoster(username, exam, status)
                           VALUES('$i','$exam','$student_status');";
-    $erq = $db_conn->query($exam_roster_insert);
+    //$erq = $db_conn->query($exam_roster_insert);
+    var_dump($exam_roster_insert)
 }
 
 $j = 0;
 foreach($questions_array as $value){
     $add_exam = "INSERT INTO Exams(exam, qid, question, points)
                   VALUES ('$exam','$qids[$j]','$value','$points[$j]')";
-    //var_dump($add_exam);
-    $aeq = $db_conn->query($add_exam);
+    var_dump($add_exam);
+    //$aeq = $db_conn->query($add_exam);
     $j++;
 }
 
 $db_conn->close();
 ?>
-
