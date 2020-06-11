@@ -4,7 +4,7 @@
 include("db.php");
 
 $exam=$_POST['exam'];
- $user=$_POST['user'];
+ $username=$_POST['user'];
  $corrections=unserialize($_POST['corrections']);
  $comments=unserialize($_POST['comments']);
  $qids=unserialize($_POST['qid']);
@@ -15,7 +15,7 @@ var_dump($qids);
  
 $i = 0;
 while(i < count($qids)){
-      $a = "UPDATE Grades SET comments='$comments[$i]' WHERE username='$user' AND exam='$exam' AND qid='$qids[$i]';";
+      $a = "UPDATE Grades SET comments='$comments[$i]' WHERE username='$username' AND exam='$exam' AND qid='$qids[$i]';";
       echo "heredbconn";
       echo $i." ".$a;
       echo '<br>';
@@ -31,7 +31,7 @@ $k=0;
 $item_arr = array("MethodName", "tc1", "tc2", "tc3", "tc4", "colon","print", "for");
 while($i < count($corrections)){
     echo '<br>';
-    $qry="UPDATE Item_Deductions SET teachergrade='$corrections[$i]' WHERE username='$user' AND exam='$exam' AND qid='$qids[$j]' AND item='$item_arr[$k]'";
+    $qry="UPDATE Item_Deductions SET teachergrade='$corrections[$i]' WHERE username='$user' AND examname='$exam' AND qid='$qids[$j]' AND item='$item_arr[$k]'";
     echo $qry;
     echo '<br>';
     $result = $conn->query($qry); 
@@ -41,6 +41,12 @@ while($i < count($corrections)){
 }
 //var_dump($rows);
 echo json_encode("Success");
+
+
+$set_to_graded = "UPDATE ExamRoster
+                    SET status = 'graded'
+                    WHERE username = '$username'";
+$stg = $db_conn->query($set_to_graded);
 
 
 /*
@@ -77,3 +83,4 @@ $db_conn->close();
 
 
 ?>
+
