@@ -52,21 +52,7 @@ if (isset($_POST['exam'])){
 
             //call autograder
             $postRequest = array(
-                /*
-                'tc1' => $row["tc1"],
-                'tc2' => $row["tc2"],
-                'tc3' => $row["tc3"],
-                'tc4' => $row["tc4"],
-                'ans1'=> $row["answer1"],
-                'ans2'=> $row["answer2"],
-                'ans3'=> $row["answer3"],
-                'ans4'=> $row["answer4"],  
-                'fconstraint'=> $row["fconstraint"],
-                'pconstraint'=> $row["pconstraint"],
-                'question'=> $row["question"],
-                'qid'=> $row["qid"],
-                'ans' => $answer);
-                */
+
                 'tc1' => $row["tc1"],
                 'tc2' => $row["tc2"],
                 'tc3' => $row["tc3"],
@@ -99,35 +85,52 @@ if (isset($_POST['exam'])){
             // var_dump($json);
             // Commenting  out VVV
             //comments=$graderres['comment1'];
-            $commentMethodName = $graderres['commentMethodName'];
+            //$commentMethodName = $graderres['commentMethodName'];
             $scoreMethodName = $graderres['scoreMethodName'];
-            $printComment = $graderres['printComment'];
+            //$printComment = $graderres['printComment'];
             $printScore = $graderres['printscore'];
-            $forComment = $graderres['forComment'];
+            //$forComment = $graderres['forComment'];
             $forScore = $graderres['forScore'];
-            $colonComment = $graderres['commentColon'];
+            //$colonComment = $graderres['commentColon'];
             $colonScore = $graderres['scoreColon'];
-            $commenttc1 = $graderres['commenttc1'];
+            //$commenttc1 = $graderres['commenttc1'];
             $scoretc1 = $graderres['scoretc1'];
-            $commenttc2 = $graderres['commenttc2'];
+            //$commenttc2 = $graderres['commenttc2'];
             $scoretc2 = $graderres['scoretc2'];
-            $commenttc3 = $graderres['commenttc3'];
+            //$commenttc3 = $graderres['commenttc3'];
             $scoretc3 = $graderres['scoretc3'];
-            $commenttc4 = $graderres['commenttc4'];
-            $scoretc4 = $graderres['scoretc4'];
-            
+            //$commenttc4 = $graderres['commenttc4'];
+            $scoretc4 = $graderres['scoretc4'];   
            // $score=-2;
-            $comments=$json->$commentMethodName.';'.$json->$printComment.';'.$json->$forComment.';'.$json->$colonComment.';'.$json->$commenttc1.';'.$json->$commenttc2.';'.$json->$commenttc3.';'.$json->$commenttc4;
+            //$comments=$json->$commentMethodName.';'.$json->$printComment.';'.$json->$forComment.';'.$json->$colonComment.';'.$json->$commenttc1.';'.$json->$commenttc2.';'.$json->$commenttc3.';'.$json->$commenttc4;
             $scores= $json->$scoreMethodName.';'.$json->$printScore.';'.$json->$forScore.';'.$json->$colonScore.';'.$json->$scoretc1.';'.$json->$scoretc2.';'.$json->$scoretc3.';'.$json->$scoretc4;
             //echo  $score.'bbbb<br>';
             
+
+            $item_arr = array("scoreMethodName","printScore", "forScore", "colonScore", "scoretc1", "scoretc2", "scoretc3", "scoretc4");
+            $scores_arr = array("$scoreMethodName","$printScore", "$forScore", "$colonScore", "$scoretc1", "$scoretc2", "$scoretc3", "$scoretc4");
+
             $k = 0;
-            foreach($qid as $k){
-                $student_answers = "INSERT INTO Grades (exam, qid, username, deduction, points_worth, comments,student_answers) 
-                VALUES ('$exam','$k', $username','$scores','$comments', '$answer')";
+            foreach($qid as $value){
+               // $student_answers = "INSERT INTO Grades (exam, qid, username, deduction, comments,student_answers) 
+                //VALUES ('$exam','$k', $username','$scores','$comments', '$answer')";
+                $student_answers = "INSERT INTO Grades (exam, qid, username, deduction,comments, student_answers) 
+                VALUES ('$exam','$value', $username','$scores', NULL, '$answer')";
                 $saq = $db_conn->query($student_answers);
+
+                $item_deductions = "INSERT INTO Item_Deductions
+                                    VALUE('$username', '$exam', '$value', '$item_arr[$k]','$scores_arr[$k]', NULL)";
+                $idq = $db_conn->query($item_deductions);
+
                 $k++;
             }
+
+
+
+
+
+
+
             //$student_answers = "INSERT INTO Grades (exam, username, deduction, points_worth, comments,student_answers) 
             //                   VALUES ('$exam','$username','$score','$comments', '$answer')";
             //$saq = $db_conn->query($student_answers);
