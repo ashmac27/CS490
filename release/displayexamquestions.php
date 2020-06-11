@@ -4,7 +4,7 @@ include("db.php");
 
 //Subquery that connects username from ExamRoster table to Exams table
 $username = $_POST['username'];
-$display_exam = "SELECT exam, question, points FROM Exams WHERE exam in
+$display_exam = "SELECT exam, qid, question, points FROM Exams WHERE exam in
                     (SELECT distinct exam FROM ExamRoster
                     WHERE status = 'ungraded' and username ='$username')";    
 
@@ -13,7 +13,7 @@ $rows = array();
 while($r = mysqli_fetch_assoc($deq)){
     $rows[] = $r;
 }
-echo "Testing";
+
 echo json_encode($rows);
 
 
