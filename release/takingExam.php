@@ -73,9 +73,6 @@ if (isset($_POST['exam'])){
     curl_close($cURLConnection);
     $json = json_decode($graderres);
      
-     //echo 'AAAAA<br>';
-     //var_dump($graderres);
-      //echo 'BBBBB<br>';//$graderres[0].'BBBBBBBBB<br>';
      // var_dump($json);
     $comments=$graderres['comment1'];
     $score=-2;
