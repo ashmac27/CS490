@@ -6,8 +6,8 @@ include("db.php");
 $exam = $_POST['exam_title'];
 $questions_array = unserialize($_POST['questions']);
 $points = unserialize($_POST['points']);
-$qid = unserialize($_POST['qid']);
-
+//new: array of qids **************************************
+$qids = unserialize($_POST['qid']);
 
 //Query to select students to take the exam
 $query = "SELECT username FROM login WHERE role ='student';";
@@ -18,7 +18,7 @@ while($row = $result->fetch_assoc()){
     array_push($students_selected, $row['username']);
 }
 
-
+ 
 $student_status = "ungraded";
 foreach ($students_selected as $i) {
     $exam_roster_insert = "INSERT INTO ExamRoster(username, exam, status)
@@ -29,7 +29,7 @@ foreach ($students_selected as $i) {
 $j = 0;
 foreach($questions_array as $value){
     $add_exam = "INSERT INTO Exams(exam, qid, question, points)
-                  VALUES ('$exam',$qid[$j]','$value','$points[$j]')";
+                  VALUES ('$exam',$qids[$j]','$value','$points[$j]')";
     $aeq = $db_conn->query($add_exam);
     $j++;
 }
