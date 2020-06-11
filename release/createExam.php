@@ -24,7 +24,7 @@ foreach ($students_selected as $i) {
     $exam_roster_insert = "INSERT INTO ExamRoster(username, exam, status)
                           VALUES('$i','$exam','$student_status');";
     //$erq = $db_conn->query($exam_roster_insert);
-    var_dump($exam_roster_insert)
+    var_dump($exam_roster_insert);
 }
 
 $j = 0;
