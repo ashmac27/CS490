@@ -8,7 +8,7 @@ $exam = $_POST['exam'];
 $username = $_POST['username'];
 $qid = unserialize($_POST['qid']);
 $ans = unserialize($_POST['ans']);
-$qid=array("2", "5", "6");
+//$qid=array("2", "5", "6");
 
 
 if (isset($_POST['exam'])){
