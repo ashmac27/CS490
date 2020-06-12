@@ -104,14 +104,14 @@ if (isset($_POST['exam'])){
             //$commenttc4 = $graderres['commenttc4'];
            // $scoretc4 = $graderres['scoretc4'];   
 
-            $scoreMethodName = $json->$scoreMethodName;
-            $printScore = $json->$printScore;
-            $forScore = $json->$forScore;
-            $colonScore = $json->$colonScore;
-            $scoretc1 = $json->$scoretc1;
-            $scoretc2 = $json->$scoretc2;
-            $scoretc3 = $json->$scoretc3;
-            $scoretc4 = $json->$scoretc4;
+            $scoreMethodName = $json->scoreMethodName;
+            $printScore = $json->printscore;
+            $forScore = $json->forscore;
+            $colonScore = $json->scoreColon;
+            $scoretc1 = $json->scoretc1;
+            $scoretc2 = $json->scoretc2;
+            $scoretc3 = $json->scoretc3;
+            $scoretc4 = $json->scoretc4;
             //adding varibales to be similar to abhinav
 
            // $score=-2;
