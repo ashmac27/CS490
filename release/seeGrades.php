@@ -39,11 +39,11 @@ echo json_encode($my_obj);
 $db_conn->close();
 */
 
-$student_username = $_POST['username'];
+$student_username = $_POST['ucid'];
 $type=$_POST['type'];
 
 if($type == 'select')
-  $qry="SELECT qid, deduction, student_answers FROM Grades WHERE username='$student_username'";
+  $qry = "SELECT qid, deduction, student_answers, comments FROM Grades WHERE username='$student_username'";
 
 $result = $db_conn->query($qry); 
 
