@@ -49,11 +49,19 @@ $result = $db_conn->query($qry);
 
 $rows = array();
 while($r = mysqli_fetch_assoc($result)){
-//var_dump($r);
-    $rows[] = $r;
+  $qid=$r['qid'];
+  $teacheGrade="SELECT GROUP_CONCAT(teachergrade) as teachergrade FROM Item_Deductions WHERE username='$ucid' and qid='$qid'";
+  $res = $db_conn->query($teacheGrade); 
+  $s = mysqli_fetch_assoc($res);
+
+  $r['teachergrade']=$s['teachergrade'];
+  $rows[] = $r;
 }
 //var_dump($rows);
+//echo json_encode($rows);
+
 echo json_encode($rows);
+
 
 
 ?>
