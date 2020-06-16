@@ -1,0 +1,68 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html >
+<style type="text/css">
+	html,body{
+		background-image:url('images/ED_49-FXkAYzB5m.jpg');
+		background-repeat: no-repeat;
+		background-size: cover;
+		margin:0px;
+		height: 100%;
+	}
+	
+.grandLogin {
+	display:table;
+	height:100%;
+	margin:0 auto;
+}
+div.square {
+	display: table-cell;  	
+  	vertical-align: middle;
+}
+div.square form{
+	width:500px;
+	border:2px solid black;
+  	background-color: white;
+  	border-radius: 25px;
+  	padding:20px;
+  	text-align: center;
+}
+div.square p,label{
+	color: #071D49;
+	font-weight: bold;
+	font-size:25pt;
+	
+	
+	
+}
+div.square input{
+	border-radius: 25px;
+	background-color:#F2F6F8;
+	font-size: 20pt;
+	color: #071D49;
+}
+
+
+
+	
+</style>
+<body>
+<title>Online Exam Login</title>
+
+<div class="grandLogin">
+	<div class="square">
+		<form  action="/~rna25/welcome.php" id="form" method="post">
+			<p >NJIT CS100 Exam System</p>
+			<label style="text-align: center;" for="user">Username:</label><br>
+			<input style="height:25px;width:200px;" id="user" type="text" name="username" required>*<br>
+			<label  for="pass">Password:</label><br>
+			<input style="height:25px;width:200px;" id="pass" type="password" name="password" required>*<br>
+			<input style="background-color:#D22630; font-size:14pt; width:100px; color:white;" type="submit" value="Login">
+		</form>
+	</div>
+</div>
+
+</body>
+  
+</html>
+
