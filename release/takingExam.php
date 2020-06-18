@@ -211,6 +211,11 @@ if (isset($_POST['exam'])){
     }
 }
 
+if($idq == TRUE){
+    echo json_encode("Exam Submitted!");
+}else{
+    echo json_encode("Exam unable to be submitted");
+}
 
 $db_conn->close();
 ?>
